@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot:heading>
-        jobs page
+        Jobs page
     </x-slot:heading>
     <h1>Job Listings</h1>
     <div class="space-y-4">
