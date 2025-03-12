@@ -10,6 +10,17 @@ class JobPolicy
 {
     public function edit(User $user, Job $job): bool
     {
-        return $job->employer->user->is($user);
+        // Check if job has an employer relation
+        if (!$job->employer) {
+            return false;
+        }
+        
+        // Check if employer has a user relation
+        if (!$job->employer->user) {
+            return false;
+        }
+        
+        // Check if authenticated user is the job's employer
+        return $job->employer->user->id === $user->id;
     }
 }

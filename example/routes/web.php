@@ -1,15 +1,25 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\RegisterUserController;
 use App\Http\Controllers\SessionController;
+use App\Jobs\TranslateJob;
+use App\Mail\JobsPosted;
+use App\Models\Job;
+use Illuminate\Contracts\Mail\Mailer;
+use Illuminate\Mail\Mailer as MailMailer;
 
+Route::get('test', function () {
+    $job = Job::first();
+    
+    TranslateJob::dispatch($job);
+    return "Done";
+});
 
 Route::view('/', 'home');
 Route::view('/contact', 'contact');
-
-// Route::resource('jobs', JobController::class);
 
 route::get('/jobs', [JobController::class, 'index']);
 route::get('/jobs/create', [JobController::class, 'create']);
